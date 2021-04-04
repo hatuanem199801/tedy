@@ -1,0 +1,101 @@
+.slider {
+  position: relative;
+  height: 25rem;
+}
+
+.slideItem {
+  height: auto;
+}
+
+.slideControl {
+  position: absolute;
+  top: 48%;
+  width: 100%;
+}
+
+.slideImage {
+  display: inline;
+  margin: auto;
+  width: auto !important;
+}
+
+.slideTitle {
+  position: absolute;
+  color: white !important;
+  z-index: 2;
+  top: 50%;
+  display: inline-block;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.slideTitle span {
+  border: 1px solid #fff;
+  padding: 0.6rem 2rem;
+  font-size: 1.2rem;
+}
+
+.slideTitle p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.slideTitle span:hover {
+  background: #fff;
+  color: black;
+}
+
+.dotsControl {
+  position: absolute;
+  bottom: 2%;
+  width: 100%;
+  text-align: center;
+}
+
+.dot {
+  display: inline-block;
+  padding: 0.1rem 1rem;
+  background: rgba(0, 0, 0, 0.63);
+  margin: 0.4rem;
+  height: 2px;
+  cursor: pointer;
+}
+
+.dotActive {
+  background: rgba(206, 205, 205, 0.63);
+}
+
+.leftControl {
+  border-radius: 0 5px 5px 0;
+}
+
+.rightControl {
+  border-radius: 5px 0 0 5px;
+}
+
+.leftControl, .rightControl {
+  background: rgba(0, 0, 0, 0.63);
+  cursor: pointer;
+  z-index: 2;
+  padding: 1%;
+}
+
+.leftControl {
+  position: absolute;
+  left: 0;
+}
+
+.rightControl {
+  position: absolute;
+  right: 0;
+}
+
+.active {
+  display: inline !important;
+  transition: display 1s ease-in-out;
+}
+
+.hide {
+  display: none !important;
+}

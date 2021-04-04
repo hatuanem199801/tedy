@@ -1,0 +1,12 @@
+.product a {
+  color: black;
+}
+
+.price {
+  font-size: 1.2rem;
+  color: red;
+}
+
+.imageDot {
+  cursor: pointer;
+}

@@ -8,9 +8,22 @@
     "start": "next start"
   },
   "dependencies": {
+    "bootstrap": "^4.6.0",
+    "framer-motion": "^4.1.2",
+    "js-cookie": "^2.2.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.12.3",
     "next": "10.1.3",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "next-redux-wrapper": "^6.0.2",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hot-toast": "^1.0.2",
+    "react-icons": "^4.2.0",
+    "react-redux": "^7.2.3",
+    "react-slideshow-image": "^3.4.5",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0"
   }
 }

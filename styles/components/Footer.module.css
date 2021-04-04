@@ -1,0 +1,60 @@
+.footer {
+  width: 100%;
+  background: #fff;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.list a, .box a {
+  color: black;
+  font-size: 0.8rem;
+}
+
+.box {
+  margin: 3rem;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.box a {
+  font-weight: 500;
+}
+
+.box span {
+  font-size: 0.8rem ;
+}
+
+.copyright {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.copyright span {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.copyright a {
+  color: black;
+  text-decoration: none;
+}
+
+
+@media only screen and (max-width: 375px) {
+  .box {
+    margin: 0.4rem;
+  }
+}

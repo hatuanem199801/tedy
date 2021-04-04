@@ -1,72 +1,33 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import { serverHost } from "../configs";
-import Link from "next/link";
+import ListProductBaseCategory from "../components/ListProductBaseCategory";
+import EventSlider from "../components/EventSlider";
+import Mission from "../components/Mission";
+import FollowUs from "../components/FollowUs";
 
-export default function Home({ data }) {
+export default function Home() {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Tedy app - Home Page</title>
+        <title>Trang chủ - MyMy</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to{" "}
-          <a href="https://nextjs.org">Next.js! - Server Side Rendering </a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          {data &&
-            data.map((product) => {
-              return (
-                <Link
-                  href={{
-                    pathname: "/[seourl]",
-                    query: { seourl: product.seourl },
-                  }}
-                >
-                  <a
-                    key={product._id}
-                    href={`${product.seourl}`}
-                    className={styles.card}
-                  >
-                    <h3>{product.name} &rarr;</h3>
-                    <p>{product.price}</p>
-                  </a>
-                </Link>
-              );
-            })}
+      <div className="mb-4">
+        <EventSlider />
+      </div>
+      <main className="container-md">
+        <div className="mb-4">
+          <ListProductBaseCategory category={"hat"} name="Hat" />
+        </div>
+        <div className="mb-4">
+          <ListProductBaseCategory category={"shoes"} name="Shoes" />
+        </div>
+        <div className="mb-4">
+          <Mission />
+        </div>
+        <div className="mb-4">
+          <FollowUs />
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  const result = await fetch(`${serverHost}/api/product/null/10`);
-  const products = await result.json();
-
-  return {
-    props: {
-      data: JSON.parse(JSON.stringify(products.data)),
-    },
-  };
 }

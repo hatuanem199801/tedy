@@ -1,0 +1,16 @@
+
+.btnSearch {
+  right: 5px;
+  outline: none;
+}
+
+.btnSearch:focus {
+  outline: none;
+  border: none;
+}
+
+@media only screen and (max-width: 414px) {
+  .btnSearch {
+    top: -5px;
+  }
+}
