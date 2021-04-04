@@ -1,3 +1,5 @@
 import Product from "./Product";
+import Category from "./Product";
+import Event from "./Event";
 
-export { Product };
+export { Product, Category, Event };
