@@ -1,14 +1,30 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchShopping, clearShopping } from "../store/shopping/action";
+import {
+  fetchShopping,
+  clearShopping,
+  decrement,
+  increment,
+  remove,
+  getShopping,
+} from "../store/shopping/action";
 import styles from "../styles/components/OrderItem.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import formatMoney from "../libs/moneyFormat";
 import { AiFillMinusSquare, AiFillPlusSquare } from "react-icons/ai";
+import PropTypes from "prop-types";
+import toast from "react-hot-toast";
 
-function ListOrderItems({ fetchShopping, clearShopping, shopping }) {
+function ListOrderItems({
+  fetchShopping,
+  shopping,
+  handleDecrement,
+  handleIncrement,
+  handleRemove,
+  handleGet,
+}) {
   return (
     <ul className={`${styles.orderList} list-group`}>
       {shopping &&
@@ -44,18 +60,41 @@ function ListOrderItems({ fetchShopping, clearShopping, shopping }) {
                     {formatMoney(item.product.price)}
                   </p>
                   <div className="controls">
-                    <button className="btn btn-sm p-0">
+                    <button
+                      className="btn btn-sm p-0"
+                      onClick={() => {
+                        handleDecrement(item.product);
+                        fetchShopping();
+                        toast.success("Cập nhật sản phẩm thành công.");
+                      }}
+                    >
                       <AiFillMinusSquare size={25} />
                     </button>
                     <button className="btn btn-sm btn-outline-secondary px-3">
                       <span>{item.quantity}</span>
                     </button>
-                    <button className="btn btn-sm p-0">
+                    <button
+                      className="btn btn-sm p-0"
+                      onClick={() => {
+                        handleIncrement(item.product);
+                        fetchShopping();
+                        toast.success("Cập nhật sản phẩm thành công.");
+                      }}
+                    >
                       <AiFillPlusSquare size={25} />
                     </button>
                   </div>
                   <hr />
-                  <a className="text-danger">Xoá</a>
+                  <button
+                    className="btn btn-link text-danger"
+                    onClick={() => {
+                      handleRemove(item.product);
+                      fetchShopping();
+                      toast.success("Xoá sản phẩm thành công.");
+                    }}
+                  >
+                    Xoá
+                  </button>
                 </div>
               </div>
             </li>
@@ -72,7 +111,10 @@ function ListOrderItems({ fetchShopping, clearShopping, shopping }) {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchShopping: bindActionCreators(fetchShopping, dispatch),
-    clearShopping: bindActionCreators(clearShopping, dispatch),
+    handleDecrement: bindActionCreators(decrement, dispatch),
+    handleIncrement: bindActionCreators(increment, dispatch),
+    handleRemove: bindActionCreators(remove, dispatch),
+    handleGet: bindActionCreators(getShopping, dispatch),
   };
 };
 
@@ -80,6 +122,10 @@ const mapStateToProps = (state) => {
   return {
     shopping: state.shopping.shopping,
   };
+};
+
+ListOrderItems.propTypes = {
+  shopping: PropTypes.array.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListOrderItems);

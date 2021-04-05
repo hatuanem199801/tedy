@@ -1,3 +1,4 @@
+import { remove } from "js-cookie";
 import { getCookie, setCookie } from "../../libs/useCookie";
 import { actionShopping } from "./action";
 const CARD = "CARD";
@@ -14,7 +15,7 @@ function clear() {
 
 function removeShoppingCart(data) {
   let shoppings = shopInitialState.shopping;
-  shoppings.filter((item) => item.product._id !== data.product._id);
+  shoppings = shoppings.filter((item) => item.product._id !== data.product._id);
   setCookie(CARD, shoppings);
   return shoppings;
 }
@@ -43,8 +44,10 @@ function decrement(data) {
   );
   if (isExisted) {
     shoppings.forEach((item) => {
-      if (item.product._id === data.product._id) {
-        item.quantity -= 1;
+      if (item.quantity > 1) {
+        if (item.product._id === data.product._id) {
+          item.quantity -= 1;
+        }
       }
       return item;
     });
@@ -90,6 +93,24 @@ export default function reducer(state = shopInitialState, action) {
         shopping: clear(),
       };
       return state;
+    case actionShopping.INCREMENT:
+      state = {
+        shopping: increment(payload),
+      };
+      return state;
+    case actionShopping.DECREMENT:
+      console.log("Function decrement has called");
+
+      state = {
+        shopping: decrement(payload),
+      };
+      return state;
+    case actionShopping.REMOVE:
+      state = {
+        shopping: removeShoppingCart(payload),
+      };
+      return state;
+    case actionShopping.GET:
     case actionShopping.FETCH:
     default:
       state = {
