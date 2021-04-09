@@ -16,6 +16,7 @@ function clear() {
 function removeShoppingCart(data) {
   let shoppings = shopInitialState.shopping;
   shoppings = shoppings.filter((item) => item.product._id !== data.product._id);
+  shopInitialState.shopping = shoppings;
   setCookie(CARD, shoppings);
   return shoppings;
 }
@@ -99,8 +100,6 @@ export default function reducer(state = shopInitialState, action) {
       };
       return state;
     case actionShopping.DECREMENT:
-      console.log("Function decrement has called");
-
       state = {
         shopping: decrement(payload),
       };

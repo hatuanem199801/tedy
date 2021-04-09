@@ -23,7 +23,6 @@ function ListOrderItems({
   handleDecrement,
   handleIncrement,
   handleRemove,
-  handleGet,
 }) {
   return (
     <ul className={`${styles.orderList} list-group`}>
@@ -89,7 +88,6 @@ function ListOrderItems({
                     className="btn btn-link text-danger"
                     onClick={() => {
                       handleRemove(item.product);
-                      fetchShopping();
                       toast.success("Xoá sản phẩm thành công.");
                     }}
                   >
