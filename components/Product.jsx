@@ -4,6 +4,7 @@ import formatMoney from "../libs/moneyFormat";
 import Image from "next/image";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import Skeleton from "react-loading-skeleton";
 
 export default function Product(props) {
   const { seourl, name, image, price, _id } = props;
@@ -17,13 +18,17 @@ export default function Product(props) {
           }}
         >
           <a href={`/${seourl}`}>
-            <Image
-              alt={name}
-              src={image}
-              width={380}
-              height={380}
-              layout="responsive"
-            />
+            {image ? (
+              <Image
+                alt={name}
+                src={image}
+                width={380}
+                height={380}
+                layout="responsive"
+              />
+            ) : (
+              <Skeleton height={380} width={380} />
+            )}
           </a>
         </Link>
       </div>
@@ -36,12 +41,12 @@ export default function Product(props) {
         >
           <a href={`/${seourl}`}>
             <div title={name} className={styles.name}>
-              {name}
+              {name || <Skeleton height={10} />}
             </div>
           </a>
         </Link>
         <div alt={name} className={styles.price}>
-          {price && formatMoney(price)}
+          {(price && formatMoney(price)) || <Skeleton height={10} />}
         </div>
       </div>
     </div>

@@ -1,16 +1,15 @@
 import Head from "next/head";
-import fetcher from "../libs/fetcher";
-import { serverHost } from "../configs";
 import Image from "next/image";
 import moneyFormat from "../libs/moneyFormat";
 import PropTypes from "prop-types";
 import styles from "../styles/components/ProductDetail.module.css";
-import { AiOutlineShopping } from "react-icons/ai";
+import Skeleton from "react-loading-skeleton";
 import Link from "next/link";
-import { useState } from "react";
-import { motion } from "framer-motion";
 import ListProductBaseCategory from "../components/ListProductBaseCategory";
 import AddToCart from "../components/AddToCart";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { serverHost } from "../configs";
 
 export default function Product({ data }) {
   const { name, images, price, description, seourl, category } = data;
@@ -67,16 +66,20 @@ export default function Product({ data }) {
                   duration: 1,
                 }}
               >
-                <Image
-                  src={imageSlide}
-                  height={480}
-                  width={480}
-                  alt={name}
-                  layout="responsive"
-                />
+                {imageSlide ? (
+                  <Image
+                    src={imageSlide}
+                    height={480}
+                    width={480}
+                    alt={name}
+                    layout="responsive"
+                  />
+                ) : (
+                  <Skeleton height={480} width={480} />
+                )}
               </motion.div>
               <div className="d-flex justify-content-center my-3">
-                {images &&
+                {(images &&
                   images.map((image) => {
                     return (
                       <div
@@ -87,15 +90,19 @@ export default function Product({ data }) {
                         <Image src={image} height={60} width={60} alt={name} />
                       </div>
                     );
-                  })}
+                  })) || (
+                  <Skeleton height={60} width={60} className="m-2" count={3} />
+                )}
               </div>
             </div>
             <div className="col-12 col-sm-6">
-              <h1>{name}</h1>
-              <h2 className={styles.price}>{moneyFormat(price)}</h2>
+              <h1>{name || <Skeleton />}</h1>
+              <h2 className={styles.price}>
+                {price ? moneyFormat(price) : <Skeleton />}
+              </h2>
               <hr />
               <AddToCart data={data} />
-              <p className="mt-2">{description}</p>
+              <p className="mt-2">{description || <Skeleton count={10} />}</p>
             </div>
           </div>
         </article>

@@ -20,6 +20,7 @@
     "react-dom": "^17.0.2",
     "react-hot-toast": "^1.0.2",
     "react-icons": "^4.2.0",
+    "react-loading-skeleton": "^2.2.0",
     "react-redux": "^7.2.3",
     "react-slideshow-image": "^3.4.5",
     "redux": "^4.0.5",

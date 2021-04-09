@@ -6,6 +6,7 @@ import fetcher from "../libs/fetcher";
 import styles from "../styles/components/ListProductBaseCategory.module.css";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import Link from "next/link";
+import Skeleton from "react-loading-skeleton";
 
 export default function ListProductBaseCategory({ category, name }) {
   const [products, setProducts] = useState([]);
@@ -19,6 +20,21 @@ export default function ListProductBaseCategory({ category, name }) {
       }
     );
   }, []);
+
+  const loading = products ? (
+    products.map((product) => {
+      return (
+        <div
+          key={product._id}
+          className="col-6 col-md-2 col-sm-3 col-md-4 col-lg-2 px-0 mb-2"
+        >
+          <ProductItem image={product.images[0]} {...product} />
+        </div>
+      );
+    })
+  ) : (
+    <Skeleton count={10} height={200} width={200} className="m-1" />
+  );
 
   return (
     <div className={styles.listCategory}>
@@ -40,17 +56,7 @@ export default function ListProductBaseCategory({ category, name }) {
         </Link>
       </div>
       <div className="list-category-item">
-        <div className="row mx-0">
-          {products &&
-            products.map((product) => (
-              <div
-                key={product._id}
-                className="col-6 col-md-2 col-sm-3 col-md-4 col-lg-2 px-0 mb-2"
-              >
-                <ProductItem image={product.images[0]} {...product} />
-              </div>
-            ))}
-        </div>
+        <div className="row mx-0">{loading}</div>
       </div>
     </div>
   );

@@ -3,12 +3,16 @@ import ListProductBaseCategory from "../components/ListProductBaseCategory";
 import EventSlider from "../components/EventSlider";
 import Mission from "../components/Mission";
 import FollowUs from "../components/FollowUs";
+import { serverHost } from "../configs";
 
 export default function Home() {
   return (
     <div>
       <Head>
         <title>Trang chủ - MyMy</title>
+        <meta name="description" content={`Mua sam that de dang`} />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={`${serverHost}/`} name="canonicallink" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="mb-4">
