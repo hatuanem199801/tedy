@@ -23,7 +23,7 @@ function Order() {
         <div className="col-12 col-sm-7">
           <ListOrderItem />
         </div>
-        <div className="col-12 col-sm-5">
+        <div className="col-12 col-sm-5 mt-sm-0 mt-2 px-0">
           <PaymentInfo />
         </div>
       </div>

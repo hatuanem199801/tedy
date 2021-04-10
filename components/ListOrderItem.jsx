@@ -31,7 +31,7 @@ function ListOrderItems({
           return (
             <li
               key={item.product._id}
-              className={`${styles.orderItem} list-group-item my-2 shadow rounded-0`}
+              className={`${styles.orderItem} list-group-item my-2 rounded-0`}
             >
               <div className="row">
                 <div className="col-3">
