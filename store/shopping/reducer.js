@@ -10,6 +10,7 @@ const shopInitialState = {
 function clear() {
   let shoppings = [];
   setCookie(CARD, shoppings);
+  shopInitialState.shopping = shoppings;
   return shoppings;
 }
 

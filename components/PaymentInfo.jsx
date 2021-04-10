@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchShopping } from "../store/shopping/action";
-import styles from "../styles/components/OrderItem.module.css";
+import { clearShopping } from "../store/shopping/action";
 import formatMoney from "../libs/moneyFormat";
+import { serverHost } from "../configs";
+import fetcher from "../libs/fetcher";
+import toast from "react-hot-toast";
 
-function PaymentInfo({ fetchShopping, data }) {
+function PaymentInfo({ clear, data }) {
   let total = 0;
   if (data) {
     const totalList = data.map((item) => item.product.price * item.quantity);
@@ -22,16 +24,34 @@ function PaymentInfo({ fetchShopping, data }) {
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setInfo({ [name]: value });
+    setInfo({ ...info, [name]: value });
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(info);
+    if (data) {
+      const products = data.map((item) => item.product._id);
+      const body = {
+        ...info,
+        products,
+      };
+      const result = await fetcher(`${serverHost}/api/order`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      if (result.status == 200) {
+        toast.success("Đơn hàng được đặt thành công.");
+        clear();
+      }
+    }
   };
 
   return (
-    <div className={``}>
+    <>
       {total > 0 ? (
         <div>
           <h2 className="font-weight-light">{`Thanh toán`}</h2>
@@ -84,20 +104,20 @@ function PaymentInfo({ fetchShopping, data }) {
               type="submit"
               onClick={handleOnSubmit}
             >
-              Thanh toán
+              {`Thanh toán`}
             </button>
           </div>
         </div>
       ) : (
         ""
       )}
-    </div>
+    </>
   );
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchShopping: bindActionCreators(fetchShopping, dispatch),
+    clear: bindActionCreators(clearShopping, dispatch),
   };
 };
 
