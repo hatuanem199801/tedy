@@ -58,41 +58,44 @@ function ListOrderItems({
                   <p className="text-danger">
                     {formatMoney(item.product.price)}
                   </p>
-                  <div className="controls">
-                    <button
-                      className="btn btn-sm p-0"
-                      onClick={() => {
-                        handleDecrement(item.product);
-                        fetchShopping();
-                        toast.success("Cập nhật sản phẩm thành công.");
-                      }}
-                    >
-                      <AiFillMinusSquare size={25} />
-                    </button>
-                    <button className="btn btn-sm btn-outline-secondary px-3">
-                      <span>{item.quantity}</span>
-                    </button>
-                    <button
-                      className="btn btn-sm p-0"
-                      onClick={() => {
-                        handleIncrement(item.product);
-                        fetchShopping();
-                        toast.success("Cập nhật sản phẩm thành công.");
-                      }}
-                    >
-                      <AiFillPlusSquare size={25} />
-                    </button>
+                  <div className="d-flex justify-content-between">
+                    <div className="item-controls">
+                      <button
+                        className="btn btn-sm p-0"
+                        onClick={() => {
+                          handleDecrement(item.product);
+                          fetchShopping();
+                          toast.success("Cập nhật sản phẩm thành công.");
+                        }}
+                      >
+                        <AiFillMinusSquare size={25} />
+                      </button>
+                      <button className="btn btn-sm btn-outline-secondary px-3">
+                        <span>{item.quantity}</span>
+                      </button>
+                      <button
+                        className="btn btn-sm p-0"
+                        onClick={() => {
+                          handleIncrement(item.product);
+                          fetchShopping();
+                          toast.success("Cập nhật sản phẩm thành công.");
+                        }}
+                      >
+                        <AiFillPlusSquare size={25} />
+                      </button>
+                    </div>
+                    <div className="delete-control">
+                      <button
+                        className="btn btn-link text-danger"
+                        onClick={() => {
+                          handleRemove(item.product);
+                          toast.success("Xoá sản phẩm thành công.");
+                        }}
+                      >
+                        Xoá
+                      </button>
+                    </div>
                   </div>
-                  <hr />
-                  <button
-                    className="btn btn-link text-danger"
-                    onClick={() => {
-                      handleRemove(item.product);
-                      toast.success("Xoá sản phẩm thành công.");
-                    }}
-                  >
-                    Xoá
-                  </button>
                 </div>
               </div>
             </li>
