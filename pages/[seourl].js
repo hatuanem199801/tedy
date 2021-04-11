@@ -11,147 +11,155 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { serverHost } from "../configs";
 
-export default function Product({ data }) {
-  const { name, images, price, description, seourl, category } = data;
-  const [imageSlide, setImageSlide] = useState(images[0]);
+export default function Product() {
   return (
-    <>
-      <main className={`${styles.product} container-md bg-white my-3 p-4`}>
-        <article>
-          <Head>
-            <title>
-              {name} {`- Cửa hàng thời trang MyMy`}
-            </title>
-            <meta name="description" content={description} />
-            <meta name="robots" content="index, follow" />
-            <link
-              rel="canonical"
-              href={`${serverHost}/${seourl}`}
-              name="canonicallink"
-            />
-          </Head>
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb bg-transparent">
-              <li className="breadcrumb-item">
-                <Link href="/">
-                  <a className="text-primary ">{`Trang chủ`}</a>
-                </Link>
-              </li>
-              <li className="breadcrumb-item" aria-current="page">
-                <Link
-                  href={{
-                    pathname: "/category/[seourl]",
-                    query: { seourl: category.seourl },
-                  }}
-                >
-                  <a
-                    className="text-primary"
-                    href={`/category/${category.seourl}`}
-                  >
-                    {category.title}
-                  </a>
-                </Link>
-              </li>
-              <li className="breadcrumb-item" aria-current="page">
-                <span className="readonly">{name}</span>
-              </li>
-            </ol>
-          </nav>
-          <div className="row">
-            <div className="col-12 col-sm-6">
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  x: 1,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                transition={{
-                  duration: 1,
-                }}
-              >
-                {imageSlide ? (
-                  <Image
-                    src={imageSlide}
-                    height={480}
-                    width={480}
-                    alt={name}
-                    layout="responsive"
-                  />
-                ) : (
-                  <Skeleton height={480} width={480} />
-                )}
-              </motion.div>
-              <div className="d-flex justify-content-center my-3">
-                {(images &&
-                  images.map((image) => {
-                    return (
-                      <div
-                        key={image}
-                        onClick={() => setImageSlide(image)}
-                        className={`${styles.imageDot} mx-1`}
-                      >
-                        <Image src={image} height={60} width={60} alt={name} />
-                      </div>
-                    );
-                  })) || (
-                  <Skeleton height={60} width={60} className="m-2" count={3} />
-                )}
-              </div>
-            </div>
-            <div className="col-12 col-sm-6">
-              <h1>{name || <Skeleton />}</h1>
-              <h2 className={styles.price}>
-                {price ? moneyFormat(price) : <Skeleton />}
-              </h2>
-              <hr />
-              <AddToCart data={data} />
-              <p className="mt-2">{description || <Skeleton count={10} />}</p>
-            </div>
-          </div>
-        </article>
-        <hr />
-        <ListProductBaseCategory
-          category={category.seourl}
-          name={category.title}
-        />
-      </main>
-    </>
+    <div>
+      <h1> order page</h1>
+    </div>
   );
 }
 
-export async function getStaticProps({ params }) {
-  const { seourl } = params;
-  const result = await fetch(`${serverHost}/api/product/seourl/${seourl}`);
-  const product = await result.json();
-  return {
-    props: {
-      data: JSON.parse(JSON.stringify(product.data)),
-    },
-  };
-}
+// export default function Product({ data }) {
+//   const { name, images, price, description, seourl, category } = data;
+//   const [imageSlide, setImageSlide] = useState(images[0]);
+//   return (
+//     <>
+//       <main className={`${styles.product} container-md bg-white my-3 p-4`}>
+//         <article>
+//           <Head>
+//             <title>
+//               {name} {`- Cửa hàng thời trang MyMy`}
+//             </title>
+//             <meta name="description" content={description} />
+//             <meta name="robots" content="index, follow" />
+//             <link
+//               rel="canonical"
+//               href={`${serverHost}/${seourl}`}
+//               name="canonicallink"
+//             />
+//           </Head>
+//           <nav aria-label="breadcrumb">
+//             <ol className="breadcrumb bg-transparent">
+//               <li className="breadcrumb-item">
+//                 <Link href="/">
+//                   <a className="text-primary ">{`Trang chủ`}</a>
+//                 </Link>
+//               </li>
+//               <li className="breadcrumb-item" aria-current="page">
+//                 <Link
+//                   href={{
+//                     pathname: "/category/[seourl]",
+//                     query: { seourl: category.seourl },
+//                   }}
+//                 >
+//                   <a
+//                     className="text-primary"
+//                     href={`/category/${category.seourl}`}
+//                   >
+//                     {category.title}
+//                   </a>
+//                 </Link>
+//               </li>
+//               <li className="breadcrumb-item" aria-current="page">
+//                 <span className="readonly">{name}</span>
+//               </li>
+//             </ol>
+//           </nav>
+//           <div className="row">
+//             <div className="col-12 col-sm-6">
+//               <motion.div
+//                 initial={{
+//                   opacity: 0,
+//                   x: 1,
+//                 }}
+//                 animate={{
+//                   opacity: 1,
+//                   x: 0,
+//                 }}
+//                 transition={{
+//                   duration: 1,
+//                 }}
+//               >
+//                 {imageSlide ? (
+//                   <Image
+//                     src={imageSlide}
+//                     height={480}
+//                     width={480}
+//                     alt={name}
+//                     layout="responsive"
+//                   />
+//                 ) : (
+//                   <Skeleton height={480} width={480} />
+//                 )}
+//               </motion.div>
+//               <div className="d-flex justify-content-center my-3">
+//                 {(images &&
+//                   images.map((image) => {
+//                     return (
+//                       <div
+//                         key={image}
+//                         onClick={() => setImageSlide(image)}
+//                         className={`${styles.imageDot} mx-1`}
+//                       >
+//                         <Image src={image} height={60} width={60} alt={name} />
+//                       </div>
+//                     );
+//                   })) || (
+//                   <Skeleton height={60} width={60} className="m-2" count={3} />
+//                 )}
+//               </div>
+//             </div>
+//             <div className="col-12 col-sm-6">
+//               <h1>{name || <Skeleton />}</h1>
+//               <h2 className={styles.price}>
+//                 {price ? moneyFormat(price) : <Skeleton />}
+//               </h2>
+//               <hr />
+//               <AddToCart data={data} />
+//               <p className="mt-2">{description || <Skeleton count={10} />}</p>
+//             </div>
+//           </div>
+//         </article>
+//         <hr />
+//         <ListProductBaseCategory
+//           category={category.seourl}
+//           name={category.title}
+//         />
+//       </main>
+//     </>
+//   );
+// }
 
-export async function getStaticPaths() {
-  let paths;
-  let result = await fetch(`${serverHost}/api/product`);
-  let products = await result.json();
-  products = JSON.parse(JSON.stringify(products.data));
-  paths = products.map((product) => {
-    return { params: { seourl: product.seourl } };
-  });
-  return {
-    paths,
-    fallback: false,
-  };
-}
+// export async function getStaticProps({ params }) {
+//   const { seourl } = params;
+//   const result = await fetch(`${serverHost}/api/product/seourl/${seourl}`);
+//   const product = await result.json();
+//   return {
+//     props: {
+//       data: JSON.parse(JSON.stringify(product.data)),
+//     },
+//   };
+// }
 
-Product.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    images: PropTypes.array.isRequired,
-    description: PropTypes.string.isRequired,
-  }),
-};
+// export async function getStaticPaths() {
+//   let paths;
+//   let result = await fetch(`${serverHost}/api/product`);
+//   let products = await result.json();
+//   products = JSON.parse(JSON.stringify(products.data));
+//   paths = products.map((product) => {
+//     return { params: { seourl: product.seourl } };
+//   });
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
+
+// Product.propTypes = {
+//   data: PropTypes.shape({
+//     name: PropTypes.string.isRequired,
+//     price: PropTypes.number.isRequired,
+//     images: PropTypes.array.isRequired,
+//     description: PropTypes.string.isRequired,
+//   }),
+// };
