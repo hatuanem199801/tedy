@@ -6,7 +6,8 @@ const productSchema = mongoose.Schema({
     required: [true, "Please provider name of this product."],
   },
   category: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
     required: [true, "Please provider category of this product."],
   },
   seourl: {
@@ -30,8 +31,6 @@ const productSchema = mongoose.Schema({
     default: Date.now(),
   },
 });
-
-mongoose.models = {};
 
 const Product = mongoose.model("Product", productSchema);
 

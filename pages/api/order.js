@@ -1,4 +1,5 @@
 import dbConnect from "../../configs/dbConnect";
+import { Product } from "../../models";
 import Order from "../../models/Order";
 
 const handler = async (req, res) => {
@@ -14,10 +15,11 @@ const handler = async (req, res) => {
     case "POST":
       result = await Order.create(body);
     default:
-      result = await Order.find();
-      if (limit) {
-        result = await Order.find().limit(parseInt(limit));
-      }
+      result = await Order.find().populate(
+        "products",
+        "name price images -_id",
+        Product
+      );
   }
   return res.json({
     status: 200,

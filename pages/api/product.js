@@ -1,4 +1,5 @@
 import dbConnect from "../../configs/dbConnect";
+import { Category } from "../../models";
 import Product from "../../models/Product";
 
 const handler = async (req, res) => {
@@ -13,7 +14,11 @@ const handler = async (req, res) => {
     case "POST":
       result = await Product.create(body);
     default:
-      result = await Product.find();
+      result = await Product.find().populate(
+        "category",
+        "title -_id",
+        Category
+      );
       if (limit) {
         result = await Product.find().limit(parseInt(limit));
       }

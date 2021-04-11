@@ -1,5 +1,5 @@
 import Product from "./Product";
-import Category from "./Product";
+import Category from "./Category";
 import Event from "./Event";
 import Order from "./Order";
 
