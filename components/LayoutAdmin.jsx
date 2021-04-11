@@ -6,7 +6,7 @@ class LayoutAdmin extends Component {
   render() {
     return (
       <ChakraProvider>
-        <Container maxW="container.xl">
+        <Container maxW="container.xl" p={"10"}>
           {this.props.children}
           <Toaster />
         </Container>

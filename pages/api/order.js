@@ -16,7 +16,7 @@ const handler = async (req, res) => {
       result = await Order.create(body);
     default:
       result = await Order.find().populate(
-        "products",
+        "products.product",
         "name price images -_id",
         Product
       );

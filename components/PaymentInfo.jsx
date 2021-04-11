@@ -30,7 +30,12 @@ function PaymentInfo({ clear, data }) {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     if (data) {
-      const products = data.map((item) => item.product._id);
+      const products = data.map((item) => {
+        return {
+          product: item.product._id,
+          quantity: item.quantity,
+        };
+      });
       const body = {
         ...info,
         products,

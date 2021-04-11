@@ -2,22 +2,24 @@ import React, { useEffect, useState } from "react";
 import { serverHost } from "../../configs";
 import Metadata from "../../components/Metadata";
 import fetcher from "../../libs/fetcher";
+import Image from "next/image";
 import {
   Divider,
   Heading,
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
+  Box,
 } from "@chakra-ui/react";
+import Popup from "../../components/Popup";
+import formatMoney from "../../libs/moneyFormat";
+import { AiFillPrinter } from "react-icons/ai";
 
 export default function Order() {
-  const [data, setData] = useState(null);
-
+  const [data, setData] = useState([]);
   useEffect(async () => {
     const result = await fetcher(`${serverHost}/api/order`);
     if (result && result.status === 200 && result.data.length > 0) {
@@ -30,25 +32,83 @@ export default function Order() {
         title={`Quản lý đơn hàng`}
         description={"Quản lý đơn hàng của khách hàng"}
       />
-      <Heading>Order admin</Heading>
+      <Heading>{`Quản lý đơn hàng`}</Heading>
       <Divider />
-      <Table variant="striped" colorScheme="gray">
-        <TableCaption placement="bottom">Managed by MongoDB</TableCaption>
+      <Table variant="striped" colorScheme="facebook">
         <Thead>
           <Tr>
             <Th>Don hang so</Th>
-            <Th>HovsTen</Th>
+            <Th>Ho vs Ten</Th>
+            <Th>Dia chi</Th>
+            <Th>SDT</Th>
             <Th isNumeric>Don gia</Th>
           </Tr>
         </Thead>
         <Tbody>
           {data ? (
             data.map((order) => {
+              const content = (
+                <Table variant="striped" colorScheme="facebook">
+                  <Thead>
+                    <Tr>
+                      <Th>Ten san pham</Th>
+                      <Th isNumeric>Don gia</Th>
+                      <Th>Hinh anh</Th>
+                      <Th isNumeric>So luong</Th>
+                      <Th isNumeric>Thanh tien</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {order.products.map(({ _id, product, quantity }) => {
+                      return (
+                        <Tr key={_id}>
+                          <Td>{product.name}</Td>
+                          <Td color="red" isNumeric>
+                            {formatMoney(product.price)}
+                          </Td>
+                          <Td>
+                            <Image
+                              src={product.images[0]}
+                              height={70}
+                              width={70}
+                            />
+                          </Td>
+                          <Td isNumeric>{quantity}</Td>
+                          <Td color="red" isNumeric>
+                            {formatMoney(product.price * quantity)}
+                          </Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              );
+
+              let finalTotal = order.products
+                .map(({ product, quantity }) => product.price * quantity)
+                .reduce((total, current) => total + current);
               return (
                 <Tr key={order._id}>
-                  <Td>{order._id}</Td>
-                  <Td>{order.fullname}</Td>
-                  <Td isNumeric>0.91444</Td>
+                  <Td isTruncated>
+                    <Popup
+                      content={content || ""}
+                      title={order._id}
+                      footer={
+                        <>
+                          <Box as="span" mr="2">
+                            In
+                          </Box>
+                          <AiFillPrinter />
+                        </>
+                      }
+                    />
+                  </Td>
+                  <Td isTruncated>{order.fullname}</Td>
+                  <Td isTruncated>{order.address}</Td>
+                  <Td>{order.phonenumber}</Td>
+                  <Td color="red" isNumeric>
+                    {formatMoney(finalTotal)}
+                  </Td>
                 </Tr>
               );
             })
