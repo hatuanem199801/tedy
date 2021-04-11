@@ -5,6 +5,10 @@ const categorySchema = mongoose.Schema({
     type: String,
     required: [true, "Please provider name of this event."],
   },
+  seourl: {
+    type: String,
+    required: [true, "Please provider seourl of this event."],
+  },
   image: {
     type: String,
     required: [true, "Please provider image of this event."],

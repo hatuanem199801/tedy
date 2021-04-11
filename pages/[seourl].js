@@ -34,20 +34,26 @@ export default function Product({ data }) {
             <ol className="breadcrumb bg-transparent">
               <li className="breadcrumb-item">
                 <Link href="/">
-                  <a>{`Trang chủ`}</a>
+                  <a className="text-primary ">{`Trang chủ`}</a>
                 </Link>
               </li>
               <li className="breadcrumb-item" aria-current="page">
                 <Link
                   href={{
-                    pathname: "/[seourl]",
-                    query: { seourl },
+                    pathname: "/category/[seourl]",
+                    query: { seourl: category.seourl },
                   }}
                 >
-                  <a className="text-primary" href={`/${seourl}`}>
-                    {name}
+                  <a
+                    className="text-primary"
+                    href={`/category/${category.seourl}`}
+                  >
+                    {category.title}
                   </a>
                 </Link>
+              </li>
+              <li className="breadcrumb-item" aria-current="page">
+                <span className="readonly">{name}</span>
               </li>
             </ol>
           </nav>
@@ -107,7 +113,10 @@ export default function Product({ data }) {
           </div>
         </article>
         <hr />
-        <ListProductBaseCategory category={category} name={category} />
+        <ListProductBaseCategory
+          category={category.seourl}
+          name={category.title}
+        />
       </main>
     </>
   );
@@ -119,7 +128,7 @@ export async function getStaticProps({ params }) {
   const product = await result.json();
   return {
     props: {
-      data: JSON.parse(JSON.stringify(product.data[0])),
+      data: JSON.parse(JSON.stringify(product.data)),
     },
   };
 }

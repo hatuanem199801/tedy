@@ -49,11 +49,14 @@ export default function Navbar() {
                 <li key={category._id} className="nav-item active">
                   <Link
                     href={{
-                      pathname: "/loai-san-pham/[name]",
-                      query: { name: category.title },
+                      pathname: "/category/[seourl]",
+                      query: { seourl: category.seourl },
                     }}
                   >
-                    <a className="nav-link" href={`/category/${name}`}>
+                    <a
+                      className="nav-link"
+                      href={`/category/${category.seourl}`}
+                    >
                       {category.title}
                     </a>
                   </Link>

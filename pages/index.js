@@ -4,8 +4,10 @@ import EventSlider from "../components/EventSlider";
 import Mission from "../components/Mission";
 import FollowUs from "../components/FollowUs";
 import { serverHost } from "../configs";
+import fetcher from "../libs/fetcher";
+import PropTypes from "prop-types";
 
-export default function Home() {
+export default function Home({ categories }) {
   return (
     <div>
       <Head>
@@ -19,12 +21,16 @@ export default function Home() {
         <EventSlider />
       </div>
       <main className="container-md">
-        <div className="mb-4">
-          <ListProductBaseCategory category={"hat"} name="Hat" />
-        </div>
-        <div className="mb-4">
-          <ListProductBaseCategory category={"shoes"} name="Shoes" />
-        </div>
+        {categories &&
+          categories.map((category) => (
+            <div className="mb-4" key={category._id}>
+              <ListProductBaseCategory
+                category={category.seourl}
+                name={category.title}
+              />
+            </div>
+          ))}
+
         <div className="mb-4">
           <Mission />
         </div>
@@ -35,3 +41,16 @@ export default function Home() {
     </div>
   );
 }
+
+export async function getServerSideProps() {
+  const result = await fetcher(`${serverHost}/api/category`);
+  return {
+    props: {
+      categories: result.data,
+    },
+  };
+}
+
+Home.propTypes = {
+  categories: PropTypes.array.isRequired,
+};

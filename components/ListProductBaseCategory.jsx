@@ -12,13 +12,11 @@ export default function ListProductBaseCategory({ category, name }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetcher(`${serverHost}/api/product/category/${category}/10`).then(
-      (result) => {
-        if (result.status === 200 && result.data) {
-          setProducts(result.data);
-        }
+    fetcher(`${serverHost}/api/product/${category}/10`).then((result) => {
+      if (result.status === 200 && result.data) {
+        setProducts(result.data);
       }
-    );
+    });
   }, []);
 
   const loading = products ? (

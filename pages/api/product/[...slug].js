@@ -1,5 +1,5 @@
 import dbConnect from "../../../configs/dbConnect";
-import Product from "../../../models/Product";
+import { Product, Category } from "../../../models";
 
 const handler = async (req, res) => {
   const {
@@ -8,18 +8,16 @@ const handler = async (req, res) => {
   let category = slug[0];
   let limit = slug[1];
   let result;
-  result = await Product.find();
+
   if (category && limit && category !== "null" && limit !== "null") {
-    result = await Product.find({ category }).limit(parseInt(limit));
+    const res = await Category.findOne({ seourl: category }, "_id");
+    if (res) {
+      result = await Product.find({ category: res._id })
+        .populate("category", "title seourl -_id", Category)
+        .limit(parseInt(limit));
+    }
   }
 
-  if (category && category !== "null") {
-    result = await Product.find({ category });
-  }
-
-  if (limit && limit !== "null") {
-    result = await Product.find().limit(parseInt(limit));
-  }
   return res.json({
     status: 200,
     message: "success",
