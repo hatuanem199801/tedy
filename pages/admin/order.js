@@ -36,8 +36,8 @@ export default function Order() {
     }
   }, []);
 
-  const handleOnPrinter = (name) => {
-    print.save(name);
+  const handleOnPrinter = (name, customer, products, total) => {
+    print({ customer, products, total }).save(name);
   };
 
   return (
@@ -116,7 +116,14 @@ export default function Order() {
                           <Button
                             onClick={() =>
                               handleOnPrinter(
-                                `${order._id.substring(5, 10)}.pdf`
+                                `${order._id.substring(5, 10)}.pdf`,
+                                {
+                                  fullname: order.fullname,
+                                  phonenumber: order.phonenumber,
+                                  address: order.address,
+                                },
+                                order.products,
+                                finalTotal
                               )
                             }
                           >
