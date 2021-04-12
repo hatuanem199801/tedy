@@ -13,19 +13,33 @@ import {
   Th,
   Td,
   Box,
+  Button,
 } from "@chakra-ui/react";
 import Popup from "../../components/Popup";
 import formatMoney from "../../libs/moneyFormat";
 import { AiFillPrinter } from "react-icons/ai";
+import moment from "moment";
+import print from "../../libs/print";
 
 export default function Order() {
   const [data, setData] = useState([]);
+  // const doc = new jsPDF({
+  //   orientation: "landscape",
+  //   unit: "mm",
+  //   format: [58, 100],
+  // });
+
   useEffect(async () => {
     const result = await fetcher(`${serverHost}/api/order`);
     if (result && result.status === 200 && result.data.length > 0) {
       setData(result.data);
     }
   }, []);
+
+  const handleOnPrinter = (name) => {
+    print.save(name);
+  };
+
   return (
     <>
       <Metadata
@@ -92,13 +106,23 @@ export default function Order() {
                   <Td isTruncated>
                     <Popup
                       content={content || ""}
-                      title={order._id}
+                      title={`${order._id.substring(5, 10)} - ${moment(
+                        order.date_created
+                      )
+                        .startOf("hour")
+                        .fromNow()}`}
                       footer={
                         <>
-                          <Box as="span" mr="2">
-                            In
-                          </Box>
-                          <AiFillPrinter />
+                          <Button
+                            onClick={() =>
+                              handleOnPrinter(
+                                `${order._id.substring(5, 10)}.pdf`
+                              )
+                            }
+                          >
+                            <span>In hoá đơn</span>
+                            <AiFillPrinter />
+                          </Button>
                         </>
                       }
                     />
