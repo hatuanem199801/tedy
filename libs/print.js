@@ -4,7 +4,6 @@ import cleanUnicode from "./cleanUnicode";
 const doc = new jsPDF();
 
 const pdf = (data) => {
-  console.log(data);
   const { customer, products, total } = data;
   doc.setFont("courier");
   let height = 105;

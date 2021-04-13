@@ -8,6 +8,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
+  Box,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -25,9 +26,7 @@ export default function Popup({ content, title, footer }) {
           <ModalBody>{content}</ModalBody>
           {footer && (
             <ModalFooter>
-              <Button mr={3} onClick={onClose}>
-                {footer}
-              </Button>
+              <Box mr={3}>{footer}</Box>
             </ModalFooter>
           )}
         </ModalContent>

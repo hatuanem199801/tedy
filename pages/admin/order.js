@@ -23,11 +23,6 @@ import print from "../../libs/print";
 
 export default function Order() {
   const [data, setData] = useState([]);
-  // const doc = new jsPDF({
-  //   orientation: "landscape",
-  //   unit: "mm",
-  //   format: [58, 100],
-  // });
 
   useEffect(async () => {
     const result = await fetcher(`${serverHost}/api/order`);
@@ -37,7 +32,7 @@ export default function Order() {
   }, []);
 
   const handleOnPrinter = (name, customer, products, total) => {
-    print({ customer, products, total }).save(name);
+    return print({ customer, products, total }).output("dataurlnewwindow");
   };
 
   return (
@@ -112,25 +107,23 @@ export default function Order() {
                         .startOf("hour")
                         .fromNow()}`}
                       footer={
-                        <>
-                          <Button
-                            onClick={() =>
-                              handleOnPrinter(
-                                `${order._id.substring(5, 10)}.pdf`,
-                                {
-                                  fullname: order.fullname,
-                                  phonenumber: order.phonenumber,
-                                  address: order.address,
-                                },
-                                order.products,
-                                finalTotal
-                              )
-                            }
-                          >
-                            <span>In hoá đơn</span>
-                            <AiFillPrinter />
-                          </Button>
-                        </>
+                        <Button
+                          onClick={() =>
+                            handleOnPrinter(
+                              `${order._id.substring(5, 10)}.pdf`,
+                              {
+                                fullname: order.fullname,
+                                phonenumber: order.phonenumber,
+                                address: order.address,
+                              },
+                              order.products,
+                              finalTotal
+                            )
+                          }
+                        >
+                          In hoá đơn
+                          <AiFillPrinter />
+                        </Button>
                       }
                     />
                   </Td>
