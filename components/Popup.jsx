@@ -16,7 +16,9 @@ export default function Popup({ content, title, footer }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button onClick={onOpen}>{title}</Button>
+      <Button colorScheme="green" onClick={onOpen}>
+        {title}
+      </Button>
 
       <Modal size="3xl" isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

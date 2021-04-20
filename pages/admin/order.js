@@ -32,7 +32,7 @@ export default function Order() {
   }, []);
 
   const handleOnPrinter = (name, customer, products, total) => {
-    return print({ customer, products, total }).output("dataurlnewwindow");
+    return print({ customer, products, total }).save(name);
   };
 
   return (
@@ -54,7 +54,7 @@ export default function Order() {
           </Tr>
         </Thead>
         <Tbody>
-          {data ? (
+          {data &&
             data.map((order) => {
               const content = (
                 <Table variant="striped" colorScheme="facebook">
@@ -135,12 +135,7 @@ export default function Order() {
                   </Td>
                 </Tr>
               );
-            })
-          ) : (
-            <Tr>
-              <Td colSpan={4}>yards</Td>
-            </Tr>
-          )}
+            })}
         </Tbody>
       </Table>
     </>
