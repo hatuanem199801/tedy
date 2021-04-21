@@ -40,7 +40,7 @@ export default function ListProductBaseCategory({ category, name }) {
         <h2 className={styles.title}>{name}</h2>
         <Link
           href={{
-            pathname: `/loai-san-pham/[name]`,
+            pathname: `/category/[name]`,
             query: { name: category },
           }}
           className={styles.moreLink}
