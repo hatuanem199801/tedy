@@ -9,7 +9,6 @@ const eventSchema = mongoose.Schema({
     type: String,
     required: [true, "Please provider image of this event."],
   },
-
   description: {
     type: String,
   },

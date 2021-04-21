@@ -1,5 +1,6 @@
 import Metadata from "../../components/Metadata";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Image from "next/image";
 import { serverHost } from "../../configs";
 import fetcher from "../../libs/fetcher";
 import {
@@ -11,68 +12,60 @@ import {
   Tr,
   Th,
   Td,
-  Box,
-  Button,
 } from "@chakra-ui/react";
-import Image from "next/image";
-import formatMoney from "../../libs/moneyFormat";
-import AddProduct from "../../components/AddProduct";
+import AddEvent from "../../components/AddEvent";
 import moment from "moment";
 
-export default function Product({ data }) {
-  const mainTitle = `Quản lý sản phẩm`;
-  const [products, setProducts] = useState(data);
-  const handleAddProduct = (product) => {
-    setProducts(product);
+export default function Event({ data }) {
+  const mainTitle = `Quản lý sự kiện`;
+  const [events, setEvents] = useState(data);
+  const handleAddEvent = (product) => {
+    setEvents(product);
   };
   return (
-    <>
+    <div>
       <Metadata title={mainTitle} description={mainTitle} />
       <Heading>{mainTitle}</Heading>
       <Divider />
-      <AddProduct addProduct={handleAddProduct} />
+      <AddEvent onAddEvent={handleAddEvent} />
       <Table variant="striped" colorScheme="blackAlpha">
         <Thead>
           <Tr>
-            <Th>Mã SP</Th>
-            <Th>Tên sản phẩm</Th>
-            <Th>Loai SP</Th>
-            <Th isNumeric>Giá</Th>
+            <Th>Mã SK</Th>
+            <Th>Tên sự kiện</Th>
             <Th>Hình ảnh</Th>
-            <Th>Ngay tao</Th>
+            <Th>Mô tả</Th>
+            <Th>Ngày tạo</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {products &&
-            products.map((data) => {
+          {events &&
+            events.map((data) => {
               return (
                 <Tr key={data._id}>
                   <Td>{data._id}</Td>
-                  <Td>{data.name}</Td>
-                  <Td>{data.category.title}</Td>
-                  <Td isNumeric color="red" fontWeight="bold">
-                    {formatMoney(data.price)}
-                  </Td>
+                  <Td>{data.title}</Td>
                   <Td>
                     <Image
-                      src={data.images[0]}
+                      src={data.image}
                       width={50}
                       height={50}
                       alt={data.name}
                     />
                   </Td>
+                  <Td>{data.description}</Td>
                   <td>{moment(data.date_created).startOf("hour").fromNow()}</td>
                 </Tr>
               );
             })}
         </Tbody>
       </Table>
-    </>
+    </div>
   );
 }
 
 export async function getServerSideProps() {
-  const result = await fetcher(`${serverHost}/api/product`);
+  const result = await fetcher(`${serverHost}/api/event`);
   return {
     props: {
       data: result.data,
