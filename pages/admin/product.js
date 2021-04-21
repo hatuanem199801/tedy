@@ -49,7 +49,7 @@ export default function Product({ data }) {
                 <Tr key={data._id}>
                   <Td>{data._id}</Td>
                   <Td>{data.name}</Td>
-                  <Td>{data.category.title}</Td>
+                  <Td>{data.category && data.category.title}</Td>
                   <Td isNumeric color="red" fontWeight="bold">
                     {formatMoney(data.price)}
                   </Td>
