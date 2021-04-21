@@ -31,7 +31,12 @@ const UploadForm = ({ setImage }) => {
   return (
     <form>
       <label>
-        <input type="file" onChange={handleChange} accept="image/jpeg" />
+        <input
+          type="file"
+          onChange={handleChange}
+          accept="image/jpeg"
+          required
+        />
         <span>+</span>
       </label>
       <div className="output">

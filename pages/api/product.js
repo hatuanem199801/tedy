@@ -14,13 +14,13 @@ const handler = async (req, res) => {
     case "POST":
       result = await Product.create(body);
     default:
-      result = await Product.find().populate(
-        "category",
-        "title -_id",
-        Category
-      );
+      result = await Product.find()
+        .sort({ date_created: -1 })
+        .populate("category", "title -_id", Category);
       if (limit) {
-        result = await Product.find().limit(parseInt(limit));
+        result = await Product.find()
+          .sort({ date_created: -1 })
+          .limit(parseInt(limit));
       }
   }
   return res.json({
