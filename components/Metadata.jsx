@@ -1,10 +1,10 @@
 import React from "react";
 import Head from "next/head";
 
-export default function Metadata({ title, description, index }) {
+export default function Metadata({ title, description, index, children }) {
   return (
     <Head>
-      <title>{`admin - ${title || "admin layout"}`}</title>
+      <title>{`${!index ? "admin" : "MyMy"} - ${title}`}</title>
       <meta name="description" content={description} />
       <meta
         name="robots"
@@ -12,6 +12,7 @@ export default function Metadata({ title, description, index }) {
           !index ? "nofollow" : "follow"
         }`}
       />
+      {children && children}
     </Head>
   );
 }
