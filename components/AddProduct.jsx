@@ -6,14 +6,7 @@ import {
   FormControl,
   FormHelperText,
 } from "@chakra-ui/form-control";
-import {
-  Select,
-  Flex,
-  Input,
-  Textarea,
-  Button,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Select, Flex, Input, Textarea, Button } from "@chakra-ui/react";
 import fetcher from "../libs/fetcher";
 import { serverHost } from "../configs";
 import toast from "react-hot-toast";
@@ -59,12 +52,12 @@ export default function AddProduct({ addProduct }) {
       });
 
       if (result.status == 200) {
-        toast.success("Them san pham thành công.");
+        toast.success("Them sản phẩm thành công.");
         setState({});
         addProduct(result.data);
       }
     } else {
-      toast.error("Them san pham khong thành công.");
+      toast.error("Them sản phẩm không thành công.");
     }
   };
 
@@ -125,7 +118,7 @@ export default function AddProduct({ addProduct }) {
               <Select
                 name="category"
                 onChange={handleOnChange}
-                placeholder="Chon loai san pham"
+                placeholder="Chon loại sản phẩm"
               >
                 {categories &&
                   categories.map((category) => (

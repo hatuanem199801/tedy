@@ -8,7 +8,7 @@ const handler = async (req, res) => {
     case "POST":
       result = await Category.create(body);
     default:
-      result = await Category.find();
+      result = await Category.find().sort({ date_created: -1 });
   }
   return res.json({
     status: 200,
