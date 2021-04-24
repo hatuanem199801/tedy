@@ -76,12 +76,12 @@ export default function Product({ data }) {
                   <Image
                     src={imageSlide}
                     height={480}
-                    width={480}
+                    width={360}
                     alt={name}
                     layout="responsive"
                   />
                 ) : (
-                  <Skeleton height={480} width={480} />
+                  <Skeleton height={480} width={360} />
                 )}
               </motion.div>
               <div className="d-flex justify-content-center my-3">
@@ -93,7 +93,12 @@ export default function Product({ data }) {
                         onClick={() => setImageSlide(image)}
                         className={`${styles.imageDot} mx-1`}
                       >
-                        <Image src={image} height={60} width={60} alt={name} />
+                        <Image
+                          src={image}
+                          height={180}
+                          width={120}
+                          alt={name}
+                        />
                       </div>
                     );
                   })) || (
