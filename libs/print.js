@@ -23,9 +23,13 @@ const pdf = (data) => {
   doc.setFontSize(14);
   doc.line(20, 95, 150, 95);
   for (const data of products) {
-    doc.text(20, height, data.product.name);
+    doc.text(20, height, cleanUnicode(data.product.name));
     height += 10;
-    doc.text(20, height, cleanUnicode(formatMoney(data.product.price)));
+    doc.text(
+      20,
+      height,
+      cleanUnicode(formatMoney(data.product.price) + " x SL: " + data.quantity)
+    );
     height += 10;
   }
   height -= 5;

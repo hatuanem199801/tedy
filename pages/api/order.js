@@ -15,11 +15,9 @@ const handler = async (req, res) => {
     case "POST":
       result = await Order.create(body);
     default:
-      result = await Order.find().populate(
-        "products.product",
-        "name price images -_id",
-        Product
-      );
+      result = await Order.find()
+        .populate("products.product", "name price images -_id", Product)
+        .sort({ date_created: -1 });
   }
   return res.json({
     status: 200,

@@ -12,7 +12,6 @@ import {
   Tr,
   Th,
   Td,
-  Box,
   Button,
 } from "@chakra-ui/react";
 import Popup from "../../components/Popup";
