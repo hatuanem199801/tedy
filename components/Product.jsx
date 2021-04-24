@@ -7,7 +7,7 @@ import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 
 export default function Product(props) {
-  const { seourl, name, image, price, _id } = props;
+  const { seourl, name, image, price } = props;
   return (
     <div className={styles.product}>
       <div className={styles.image}>
@@ -19,15 +19,17 @@ export default function Product(props) {
         >
           <a href={`/${seourl}`}>
             {image ? (
-              <Image
-                alt={name}
-                src={image}
-                width={380}
-                height={380}
-                layout="responsive"
-              />
+              <div className="d-block m-auto w-100">
+                <Image
+                  alt={name}
+                  src={image}
+                  height={300}
+                  width={208}
+                  layout="fixed"
+                />
+              </div>
             ) : (
-              <Skeleton height={380} width={380} />
+              <Skeleton height={240} width={140} alt={name} />
             )}
           </a>
         </Link>
