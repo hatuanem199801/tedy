@@ -76,7 +76,7 @@ export default function Product({ data }) {
                   <Image
                     src={imageSlide}
                     height={480}
-                    width={360}
+                    width={300}
                     alt={name}
                     layout="responsive"
                   />
