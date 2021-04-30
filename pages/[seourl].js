@@ -148,8 +148,7 @@ export async function getStaticPaths() {
   });
   return {
     paths,
-    fallback: true,
-    revalidate: 86400,
+    fallback: false,
   };
 }
 
