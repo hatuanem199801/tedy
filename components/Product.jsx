@@ -23,9 +23,10 @@ export default function Product(props) {
                 <Image
                   alt={name}
                   src={image}
+                  className="img-product"
                   height={300}
                   width={208}
-                  layout="fixed"
+                  layout="responsive"
                 />
               </div>
             ) : (

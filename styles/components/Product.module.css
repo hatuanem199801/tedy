@@ -36,3 +36,10 @@
 .name:hover {
   text-decoration: underline;
 }
+
+@media only screen and (max-width: 414px) {
+  .image img {
+    width: 144px !important;
+    height: 240px !important;
+  }
+}
