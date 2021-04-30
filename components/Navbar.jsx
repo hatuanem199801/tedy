@@ -25,7 +25,7 @@ export default function Navbar() {
     >
       <div className="container-md">
         <a className="navbar-brand pr-0 pb-0" href="/">
-          <Logo name={"TEDY"} bold={true} />
+          <Logo name={"MYMY"} bold={true} />
         </a>
         <button
           className="navbar-toggler"

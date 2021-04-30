@@ -23,7 +23,7 @@ export default function Footer() {
               <a href="/delivery">{`PHƯƠNG THỨC VẬN CHUYỂN`}</a>
             </li>
             <li>
-              <a href="mailto:tedy.admin../gmail.com?subject=Bạn+có+ý+kiến+gì+dành+cho+chúng+tôi&body=...">{`EMAIL: tedy.admin../gmail.com`}</a>
+              <a href="mailto:hte.media98gmail.com?subject=Bạn+có+ý+kiến+gì+dành+cho+chúng+tôi&body=...">{`EMAIL: mymy.fshop@gmail.com`}</a>
             </li>
             <li>
               <a href="tel:0945906633">{`SĐT: 0945 90 66 33`}</a>
@@ -31,14 +31,14 @@ export default function Footer() {
           </ul>
         </div>
         <div className="col-12 col-sm-3">
-          <h2 className={styles.title}>{`VỀ TEDY`}</h2>
+          <h2 className={styles.title}>{`VỀ MYMY`}</h2>
           <ul className={styles.list}>
             <li>
-              <a href="/feedback">{`GIỚI THIỆU VỀ TEDY`}</a>
+              <a href="/feedback">{`GIỚI THIỆU VỀ MYMY`}</a>
             </li>
             <li className="mt-4">
               <a href="/">
-                <Logo name={"TEDY"} bold={true} />
+                <Logo name={"MYMY"} bold={true} />
               </a>
             </li>
           </ul>
@@ -121,14 +121,14 @@ export default function Footer() {
           </span>
         </a>
         <div>
-          {`TEDY nhận đặt hàng trực tuyến và giao hàng tận nơi, hỗ trợ mua và nhận hàng trực tiếp tại cửa hàng.`}
+          {`MYMY nhận đặt hàng trực tuyến và giao hàng tận nơi, hỗ trợ mua và nhận hàng trực tiếp tại cửa hàng.`}
         </div>
       </div>
       <div className={styles.copyright}>
-        <span>{`© 2020 - Bản quyền của Tedy Media - mymysaigon.com`}</span>
+        <span>{`© 2020 - Bản quyền của MYMY Media - mymysaigon.com`}</span>
         <div>
           <a href="/">
-            <Logo name={"TEDY"} bold={true} />
+            <Logo name={"MYMY"} bold={true} />
           </a>
         </div>
       </div>

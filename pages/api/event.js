@@ -1,7 +1,15 @@
 import dbConnect from "../../configs/dbConnect";
 import Event from "../../models/Event";
+import Cors from "cors";
+import initMiddleware from "../../libs/init-middleware";
 
+const cors = initMiddleware(
+  Cors({
+    methods: ["GET", "POST"],
+  })
+);
 const handler = async (req, res) => {
+  await cors(req, res);
   const { method, body } = req;
   let result;
   switch (method) {

@@ -1,7 +1,16 @@
 import dbConnect from "../../../../configs/dbConnect";
 import { Product, Category } from "../../../../models";
+import Cors from "cors";
+import initMiddleware from "../../../../libs/init-middleware";
+
+const cors = initMiddleware(
+  Cors({
+    methods: ["GET", "POST"],
+  })
+);
 
 const handler = async (req, res) => {
+  await cors(req, res);
   const { query } = req;
   let result = await Category.findOne({ seourl: query.params });
   const products = await Product.find({

@@ -1,6 +1,14 @@
 import dbConnect from "../../configs/dbConnect";
 import { Product } from "../../models";
 import Order from "../../models/Order";
+import Cors from "cors";
+import initMiddleware from "../../libs/init-middleware";
+
+const cors = initMiddleware(
+  Cors({
+    methods: ["GET", "POST"],
+  })
+);
 
 const handler = async (req, res) => {
   const {
@@ -8,6 +16,7 @@ const handler = async (req, res) => {
     method,
     body,
   } = req;
+  await cors(req, res);
 
   let result;
 
