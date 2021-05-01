@@ -27,6 +27,9 @@ export default function Navbar() {
         <a className="navbar-brand pr-0 pb-0" href="/">
           <Logo name={"MYMY"} bold={true} />
         </a>
+        <div className="d-block d-sm-none">
+          <ShoppingCounter />
+        </div>
         <button
           className="navbar-toggler"
           type="button"
@@ -79,7 +82,7 @@ export default function Navbar() {
               </button>
             </div>
           </form>
-          <div>
+          <div className="d-none d-sm-block">
             <ShoppingCounter />
           </div>
         </div>

@@ -125,7 +125,7 @@ export default function Footer() {
         </div>
       </div>
       <div className={styles.copyright}>
-        <span>{`© 2020 - Bản quyền của MYMY Media - mymysaigon.com`}</span>
+        <span>{`© 2020 - Bản quyền của HTE Media - mymysaigon.com`}</span>
         <div>
           <a href="/">
             <Logo name={"MYMY"} bold={true} />
