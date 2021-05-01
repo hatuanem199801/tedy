@@ -18,12 +18,12 @@ async function handler(req, res) {
     });
     await req.session.save();
     res.json({
-      status: true,
+      status: 200,
       message: "Logged in success.",
     });
   } else {
-    res.status(404).json({
-      status: false,
+    res.json({
+      status: 404,
       message: "Not found user or password.",
     });
   }

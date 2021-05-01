@@ -11,17 +11,23 @@ import {
   Tr,
   Th,
   Td,
-  Box,
-  Button,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import formatMoney from "../../libs/moneyFormat";
 import AddProduct from "../../components/AddProduct";
 import moment from "moment";
+import { useRouter } from "next/router";
 
 export default function Product({ data }) {
+  const router = useRouter();
   const mainTitle = `Quản lý sản phẩm`;
   const [products, setProducts] = useState(data);
+  useEffect(async () => {
+    const result = await fetcher(`${serverHost}/api/user`);
+    if (result.status !== 200) {
+      return router.push("/admin/login");
+    }
+  }, []);
   const handleAddProduct = (product) => {
     setProducts(product);
   };
