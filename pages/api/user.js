@@ -11,7 +11,10 @@ const cors = initMiddleware(
 async function handler(req, res, session) {
   await cors(req, res);
   const user = req.session.get("user");
-  res.json({ status: 200, data: user });
+  if (user) {
+    res.json({ status: 200, data: user });
+  }
+  res.json({ status: 404 });
 }
 
 export default withIronSession(handler, {
