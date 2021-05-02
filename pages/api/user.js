@@ -12,9 +12,10 @@ async function handler(req, res, session) {
   await cors(req, res);
   const user = req.session.get("user");
   if (user) {
-    res.json({ status: 200, data: user });
+    return res.json({ status: 200, data: user });
+  } else {
+    return res.json({ status: 404 });
   }
-  res.json({ status: 404 });
 }
 
 export default withIronSession(handler, {
