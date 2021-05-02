@@ -9,6 +9,8 @@ import fetcher from "../../libs/fetcher";
 import { serverHost } from "../../configs";
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import Metadata from "../../components/Metadata";
+import Logo from "../../components/Logo";
 
 export default function Login() {
   const router = useRouter();
@@ -47,7 +49,14 @@ export default function Login() {
 
   return (
     <Box w="container.sm">
-      <Heading as="h1">Xác thực tài khoản - TEDY</Heading>
+      <Metadata
+        title={"Đăng nhập admin"}
+        description="Đăng nhập admin - TEDY"
+      />
+      <Heading as="h1">
+        Xác thực tài khoản -
+        <Logo name="MyMy" />
+      </Heading>
       <hr />
       <FormControl id="username">
         <FormLabel>Tên đăng nhập</FormLabel>
