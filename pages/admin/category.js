@@ -44,7 +44,13 @@ export default function Category({ data }) {
               return (
                 <Tr key={data._id}>
                   <Td>{data._id}</Td>
-                  <Td>{data.title}</Td>
+                  <Td>
+                    <AddCategory
+                      onAddCategory={handleAddCategory}
+                      title={data.title}
+                      data={data}
+                    />
+                  </Td>
                   <Td>
                     <Image
                       src={data.image}

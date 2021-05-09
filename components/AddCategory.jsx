@@ -18,15 +18,29 @@ import fetcher from "../libs/fetcher";
 import { serverHost } from "../configs";
 import toast from "react-hot-toast";
 
-export default function AddCategory({ onAddCategory }) {
+export default function AddCategory({ onAddCategory, title, data }) {
   const [state, setState] = useState({
     title: "",
     image: "",
     seourl: "",
     description: "",
   });
+
+  useEffect(() => {
+    if (data) {
+      setState({
+        title: data.title,
+        image: data.image,
+        seourl: data.seourl,
+        description: data.description,
+      });
+    }
+  }, []);
+
   const handleOnSubmit = async () => {
-    if (state.title && state.image.trim() !== "" && state.description) {
+    if (title) {
+      toast.success("Cập nhật loại sản phẩm thành công.");
+    } else if (state.title && state.image.trim() !== "" && state.description) {
       const result = await fetcher(`${serverHost}/api/category`, {
         method: "POST",
         headers: {
@@ -65,7 +79,7 @@ export default function AddCategory({ onAddCategory }) {
   return (
     <>
       <Popup
-        title="Thêm mới loại sản phẩm"
+        title={title || "Thêm mới loại sản phẩm"}
         content={
           <>
             <FormControl id="title">
@@ -74,6 +88,7 @@ export default function AddCategory({ onAddCategory }) {
                 onChange={handleOnChange}
                 type="text"
                 name="title"
+                value={state.title}
                 autoComplete="off"
                 required
               />
@@ -85,6 +100,7 @@ export default function AddCategory({ onAddCategory }) {
                 onChange={handleOnChange}
                 type="text"
                 name="seourl"
+                value={state.seourl}
                 autoComplete="off"
                 required
               />
@@ -101,11 +117,17 @@ export default function AddCategory({ onAddCategory }) {
             </FormControl>
             <FormControl id="description">
               <FormLabel>Mô tả</FormLabel>
-              <Textarea onChange={handleOnChange} name="description" />
+              <Textarea
+                onChange={handleOnChange}
+                value={state.description}
+                name="description"
+              />
               <FormHelperText>Mô tả là bắt buộc.</FormHelperText>
             </FormControl>
             <FormControl id="submit">
-              <Button onClick={handleOnSubmit}>Thêm mới</Button>
+              <Button onClick={handleOnSubmit}>
+                {title ? "Cập nhật" : "Thêm mới"}
+              </Button>
             </FormControl>
           </>
         }

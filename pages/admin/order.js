@@ -70,7 +70,7 @@ export default function Order() {
                     {order.products.map(({ _id, product, quantity }) => {
                       return (
                         <Tr key={_id}>
-                          <Td>{product.name}</Td>
+                          <Td>{product.name || ""}</Td>
                           <Td color="red" isNumeric>
                             {formatMoney(product.price)}
                           </Td>

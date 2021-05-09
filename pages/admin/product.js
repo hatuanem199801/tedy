@@ -11,6 +11,7 @@ import {
   Tr,
   Th,
   Td,
+  Button,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import formatMoney from "../../libs/moneyFormat";
@@ -22,15 +23,27 @@ export default function Product({ data }) {
   const router = useRouter();
   const mainTitle = `Quản lý sản phẩm`;
   const [products, setProducts] = useState(data);
+
   useEffect(async () => {
     const result = await fetcher(`${serverHost}/api/user`);
     if (result.status !== 200) {
       return router.push("/admin/login");
     }
   }, []);
+
   const handleAddProduct = (product) => {
     setProducts(product);
   };
+
+  const handleOnDelete = (data) => {
+    const result = fetcher(`${serverHost}/api/product/delete/${data._id}`, {
+      method: "DELETE",
+    });
+    if (result.status === 200) {
+      setProducts(products.filter((product) => product._id !== data._id));
+    }
+  };
+
   return (
     <>
       <Metadata title={mainTitle} description={mainTitle} />
@@ -67,7 +80,10 @@ export default function Product({ data }) {
                       alt={data.name}
                     />
                   </Td>
-                  <td>{moment(data.date_created).startOf("hour").fromNow()}</td>
+                  <Td>{moment(data.date_created).startOf("hour").fromNow()}</Td>
+                  <Td>
+                    <Button onClick={() => handleOnDelete(data)}>Xoá</Button>
+                  </Td>
                 </Tr>
               );
             })}

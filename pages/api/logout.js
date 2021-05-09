@@ -11,7 +11,7 @@ const cors = initMiddleware(
 async function handler(req, res, session) {
   await cors(req, res);
   req.session.destroy();
-  res.send("Logged out");
+  return res.redirect("/admin/login");
 }
 
 export default withIronSession(handler, {
