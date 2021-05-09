@@ -12,11 +12,10 @@ const cors = initMiddleware(
 const handler = async (req, res) => {
   await cors(req, res);
   const { query } = req;
-  let result = await Product.findOne({ seourl: query.params }).populate(
-    "category",
-    "title seourl _id",
-    Category
-  );
+  let result = await Product.findOne({
+    seourl: query.params,
+    isActive: true,
+  }).populate("category", "title seourl _id", Category);
   return res.json({
     status: 200,
     message: "success",

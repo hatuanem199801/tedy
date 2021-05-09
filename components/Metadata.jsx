@@ -4,7 +4,7 @@ import Head from "next/head";
 export default function Metadata({ title, description, index, children }) {
   return (
     <Head>
-      <title>{`${!index ? "admin" : "MyMy"} - ${title}`}</title>
+      <title>{`${!index ? "Admin" : "MyMy"} - ${title}`}</title>
       <meta name="description" content={description} />
       <meta
         name="robots"

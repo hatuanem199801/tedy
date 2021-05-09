@@ -135,6 +135,7 @@ export async function getStaticProps({ params }) {
     props: {
       data: JSON.parse(JSON.stringify(product.data)),
     },
+    revalidate: 86400,
   };
 }
 

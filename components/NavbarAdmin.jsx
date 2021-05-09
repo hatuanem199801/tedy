@@ -11,7 +11,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
   useDisclosure,
   useColorModeValue,
   Stack,
@@ -21,14 +20,15 @@ import { useRouter } from "next/router";
 import Logo from "./Logo";
 
 const Links = [
-  <a href="/admin/product">Sản phẩm</a>,
-  <a href="/admin/category">Loại sản phẩm</a>,
-  <a href="/admin/order">Hoá đơn</a>,
-  <a href="/admin/event">Sự kiện</a>,
+  <Link href="/admin/product">Sản phẩm</Link>,
+  <Link href="/admin/category">Loại sản phẩm</Link>,
+  <Link href="/admin/order">Hoá đơn</Link>,
+  <Link href="/admin/event">Sự kiện</Link>,
+  <Link href="/admin/sell">Bán hàng</Link>,
 ];
 
 const NavLink = ({ children }) => (
-  <Link
+  <Box
     px={2}
     py={1}
     rounded={"md"}
@@ -39,7 +39,7 @@ const NavLink = ({ children }) => (
     href={"#"}
   >
     {children}
-  </Link>
+  </Box>
 );
 
 export default function NavbarAdmin() {
@@ -70,8 +70,8 @@ export default function NavbarAdmin() {
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+              {Links.map((link, index) => (
+                <NavLink key={index}>{link}</NavLink>
               ))}
             </HStack>
           </HStack>
@@ -92,7 +92,7 @@ export default function NavbarAdmin() {
               </MenuButton>
               <MenuList>
                 <MenuItem>
-                  <a href="/api/logout">{"Đăng xuất"}</a>
+                  <Link href="/api/logout">{"Đăng xuất"}</Link>
                 </MenuItem>
               </MenuList>
             </Menu>

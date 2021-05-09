@@ -16,6 +16,10 @@ const categorySchema = mongoose.Schema({
   description: {
     type: String,
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
   date_created: {
     type: Date,
     default: Date.now(),

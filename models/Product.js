@@ -26,6 +26,10 @@ const productSchema = mongoose.Schema({
     type: String,
     default: "NEW",
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
   date_created: {
     type: Date,
     default: Date.now(),

@@ -3,20 +3,20 @@ import React, { useState } from "react";
 import ProgressBar from "./ProgressBar";
 
 const UploadForm = ({ setImage }) => {
-  const [file, setFile] = useState(null);
-  const [error, setError] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
+  let [file, setFile] = useState(null);
+  let [error, setError] = useState(null);
+  let [imageUrl, setImageUrl] = useState(null);
 
-  const handleSetUrl = (url) => {
+  let handleSetUrl = (url) => {
     if (url) {
       setImage(url);
       setImageUrl(imageUrl);
     }
   };
 
-  const types = ["image/png", "image/jpeg"];
+  let types = ["image/png", "image/jpeg"];
 
-  const handleChange = (e) => {
+  let handleChange = (e) => {
     let selected = e.target.files[0];
 
     if (selected && types.includes(selected.type)) {

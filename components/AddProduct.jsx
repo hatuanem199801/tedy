@@ -12,7 +12,7 @@ import { serverHost } from "../configs";
 import toast from "react-hot-toast";
 
 export default function AddProduct({ addProduct }) {
-  const [state, setState] = useState({
+  let [state, setState] = useState({
     name: "",
     price: 0,
     seourl: "",
@@ -52,12 +52,18 @@ export default function AddProduct({ addProduct }) {
       });
 
       if (result.status == 200) {
-        toast.success("Them sản phẩm thành công.");
-        setState({});
+        toast.success("Thêm sản phẩm thành công.");
         addProduct(result.data);
+        setState({
+          name: "",
+          price: 0,
+          seourl: "",
+          images: [],
+          description: "",
+        });
       }
     } else {
-      toast.error("Them sản phẩm không thành công.");
+      toast.error("Thêm sản phẩm không thành công.");
     }
   };
 

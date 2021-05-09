@@ -16,7 +16,7 @@ const handler = async (req, res) => {
     case "POST":
       result = await Event.create(body);
     default:
-      result = await Event.find();
+      result = await Event.find({ isActive: true });
   }
   return res.json({
     status: 200,

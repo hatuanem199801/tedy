@@ -23,7 +23,7 @@ const handler = async (req, res) => {
     case "POST":
       result = await Product.create(body);
     default:
-      result = await Product.find()
+      result = await Product.find({ isActive: true })
         .sort({ date_created: -1 })
         .populate("category", "title -_id", Category);
       if (limit) {

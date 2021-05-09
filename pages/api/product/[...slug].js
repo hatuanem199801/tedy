@@ -18,9 +18,12 @@ const handler = async (req, res) => {
   let result;
 
   if (category && limit && category !== "null" && limit !== "null") {
-    const res = await Category.findOne({ seourl: category }, "_id");
+    const res = await Category.findOne(
+      { seourl: category, isActive: true },
+      "_id"
+    );
     if (res) {
-      result = await Product.find({ category: res._id })
+      result = await Product.find({ category: res._id, isActive: true })
         .populate("category", "title seourl -_id", Category)
         .limit(parseInt(limit));
     }

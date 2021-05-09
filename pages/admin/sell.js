@@ -1,7 +1,6 @@
 import Metadata from "../../components/Metadata";
 import React, { useEffect, useState } from "react";
 import { serverHost } from "../../configs";
-import { projectStorage } from "../../firebase/config";
 import fetcher from "../../libs/fetcher";
 import {
   Divider,
@@ -19,11 +18,10 @@ import formatMoney from "../../libs/moneyFormat";
 import AddProduct from "../../components/AddProduct";
 import moment from "moment";
 import { useRouter } from "next/router";
-import toast from "react-hot-toast";
 
 export default function Product({ data }) {
   const router = useRouter();
-  const mainTitle = `Quản lý sản phẩm`;
+  const mainTitle = `Bán hàng`;
   const [products, setProducts] = useState(data);
 
   useEffect(async () => {
@@ -37,43 +35,12 @@ export default function Product({ data }) {
     setProducts(product);
   };
 
-  const handleOnDelete = async (data) => {
-    const result = await fetcher(
-      `${serverHost}/api/product/delete/${data._id}`,
-      {
-        method: "DELETE",
-      }
-    );
+  const handleOnDelete = (data) => {
+    const result = fetcher(`${serverHost}/api/product/delete/${data._id}`, {
+      method: "DELETE",
+    });
     if (result.status === 200) {
       setProducts(products.filter((product) => product._id !== data._id));
-      if (result.data.images && result.data.images.length > 0) {
-        result.data.images.map(async (image) => {
-          let ref = projectStorage.refFromURL(image);
-          if (ref) {
-            await ref.delete();
-          }
-        });
-      }
-    }
-  };
-
-  const handleActive = async (data) => {
-    const result = await fetcher(
-      `${serverHost}/api/product/active/${data._id}`,
-      {
-        method: "GET",
-      }
-    );
-    if (result.status === 200) {
-      setProducts(
-        products.map((product) => {
-          if (product._id === data._id) {
-            product.isActive = result.data;
-          }
-          return product;
-        })
-      );
-      toast.success("Cập nhật sản phẩm thành công");
     }
   };
 
@@ -108,22 +75,14 @@ export default function Product({ data }) {
                   <Td>
                     <Image
                       src={data.images[0]}
-                      width={48}
-                      height={80}
+                      width={50}
+                      height={50}
                       alt={data.name}
                     />
                   </Td>
                   <Td>{moment(data.date_created).startOf("hour").fromNow()}</Td>
                   <Td>
                     <Button onClick={() => handleOnDelete(data)}>Xoá</Button>
-                  </Td>
-                  <Td>
-                    <Button
-                      colorScheme={data.isActive ? "green" : "red"}
-                      onClick={() => handleActive(data)}
-                    >
-                      {data.isActive ? "Còn hàng" : "Hết hàng"}
-                    </Button>
                   </Td>
                 </Tr>
               );
@@ -135,7 +94,7 @@ export default function Product({ data }) {
 }
 
 export async function getServerSideProps() {
-  const result = await fetcher(`${serverHost}/api/product/admin`);
+  const result = await fetcher(`${serverHost}/api/product`);
   return {
     props: {
       data: result.data,
