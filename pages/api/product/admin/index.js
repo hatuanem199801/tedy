@@ -18,7 +18,7 @@ const handler = async (req, res) => {
 
   let result = await Product.find()
     .sort({ date_created: -1 })
-    .populate("category", "title -_id", Category);
+    .populate("category", "title _id", Category);
   if (limit) {
     result = await Product.find()
       .sort({ date_created: -1 })

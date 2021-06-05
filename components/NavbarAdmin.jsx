@@ -50,7 +50,7 @@ export default function NavbarAdmin() {
   }
   return (
     <>
-      <Box bg={"green.100"} px={4}>
+      <Box bg={"green.100"} mb={5} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}

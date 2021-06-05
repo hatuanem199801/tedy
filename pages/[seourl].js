@@ -10,8 +10,10 @@ import AddToCart from "../components/AddToCart";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { serverHost } from "../configs";
+import HtmlToReact from "html-to-react";
 
 export default function Product({ data }) {
+  const HTML = new HtmlToReact.Parser();
   const { name, images, price, description, seourl, category } = data;
   const [imageSlide, setImageSlide] = useState(images[0]);
   return (
@@ -113,7 +115,9 @@ export default function Product({ data }) {
               </h2>
               <hr />
               <AddToCart data={data} />
-              <p className="mt-2">{description || <Skeleton count={10} />}</p>
+              <div className="mt-2">
+                {HTML.parse(description) || <Skeleton count={10} />}
+              </div>
             </div>
           </div>
         </article>
@@ -135,7 +139,7 @@ export async function getStaticProps({ params }) {
     props: {
       data: JSON.parse(JSON.stringify(product.data)),
     },
-    revalidate: 86400,
+    revalidate: 1,
   };
 }
 

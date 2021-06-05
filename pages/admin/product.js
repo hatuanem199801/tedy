@@ -13,6 +13,7 @@ import {
   Th,
   Td,
   Button,
+  Box,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import formatMoney from "../../libs/moneyFormat";
@@ -80,18 +81,17 @@ export default function Product({ data }) {
   return (
     <>
       <Metadata title={mainTitle} description={mainTitle} />
-      <Heading>{mainTitle}</Heading>
-      <Divider />
+      <Heading fontWeight={"light"}>{mainTitle}</Heading>
+      <Divider my={"3"} bg={"black"} height={0.5} />
       <AddProduct addProduct={handleAddProduct} />
-      <Table variant="striped" colorScheme="blackAlpha">
+      <Table mt={4} size={"sm"} variant="striped" colorScheme="blackAlpha">
         <Thead>
           <Tr>
-            <Th>Mã SP</Th>
             <Th>Tên sản phẩm</Th>
             <Th>Loai SP</Th>
             <Th isNumeric>Giá</Th>
             <Th>Hình ảnh</Th>
-            <Th>Ngay tao</Th>
+            <Th>Ngày tạo</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -99,7 +99,6 @@ export default function Product({ data }) {
             products.map((data) => {
               return (
                 <Tr key={data._id}>
-                  <Td>{data._id}</Td>
                   <Td>{data.name}</Td>
                   <Td>{data.category && data.category.title}</Td>
                   <Td isNumeric color="red" fontWeight="bold">
@@ -115,14 +114,27 @@ export default function Product({ data }) {
                   </Td>
                   <Td>{moment(data.date_created).startOf("hour").fromNow()}</Td>
                   <Td>
-                    <Button onClick={() => handleOnDelete(data)}>Xoá</Button>
-                  </Td>
-                  <Td>
                     <Button
                       colorScheme={data.isActive ? "green" : "red"}
                       onClick={() => handleActive(data)}
+                      size={"sm"}
+                      mr={2}
                     >
                       {data.isActive ? "Còn hàng" : "Hết hàng"}
+                    </Button>
+                    <AddProduct title={`Cập nhật`} data={data} />
+                    <Button
+                      size={"sm"}
+                      onClick={() => {
+                        if (
+                          confirm("Bạn có chắc muốn xoá sản phẩm này không?")
+                        ) {
+                          handleOnDelete(data);
+                        }
+                      }}
+                      ml={2}
+                    >
+                      Xoá
                     </Button>
                   </Td>
                 </Tr>

@@ -16,7 +16,7 @@ export default function Popup({ content, title, footer }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button colorScheme="green" onClick={onOpen}>
+      <Button size={"sm"} colorScheme="green" onClick={onOpen}>
         {title}
       </Button>
 

@@ -10,14 +10,17 @@ import { Select, Flex, Input, Textarea, Button } from "@chakra-ui/react";
 import fetcher from "../libs/fetcher";
 import { serverHost } from "../configs";
 import toast from "react-hot-toast";
+import CKEditor from "react-ckeditor-component";
 
-export default function AddProduct({ addProduct }) {
+export default function AddProduct({ addProduct, title, data }) {
   let [state, setState] = useState({
-    name: "",
-    price: 0,
-    seourl: "",
-    images: [],
-    description: "",
+    id: (data && data._id) || "",
+    name: (data && data.name) || "",
+    category: (data && data.category._id) || "",
+    price: (data && data.price) || 0,
+    seourl: (data && data.seourl) || "",
+    images: (data && data.images) || [],
+    description: (data && data.description) || "",
   });
   const [categories, setCategories] = useState([]);
 
@@ -91,10 +94,18 @@ export default function AddProduct({ addProduct }) {
     }
   };
 
+  const handleOnChangeDescription = (e) => {
+    const description = e.editor.getData();
+    setState((prevState) => ({
+      ...prevState,
+      description: description,
+    }));
+  };
+
   return (
     <>
       <Popup
-        title="Thêm mới sản phẩm"
+        title={title || "Thêm mới sản phẩm"}
         content={
           <>
             <FormControl id="name">
@@ -104,6 +115,7 @@ export default function AddProduct({ addProduct }) {
                 type="text"
                 name="name"
                 autoComplete="off"
+                value={state.name}
                 required
               />
               <FormHelperText>Tên sản phẩm là bắt buộc.</FormHelperText>
@@ -115,6 +127,7 @@ export default function AddProduct({ addProduct }) {
                 type="text"
                 name="seourl"
                 autoComplete="off"
+                value={state.seourl}
                 required
               />
               <FormHelperText>SEOURL là bắt buộc.</FormHelperText>
@@ -125,6 +138,7 @@ export default function AddProduct({ addProduct }) {
                 name="category"
                 onChange={handleOnChange}
                 placeholder="Chon loại sản phẩm"
+                value={state.category}
               >
                 {categories &&
                   categories.map((category) => (
@@ -141,6 +155,7 @@ export default function AddProduct({ addProduct }) {
                 onChange={handleOnChange}
                 type="number"
                 name="price"
+                value={state.price}
                 required
               />
               <FormHelperText>Đơn giá là bắt buộc và là số.</FormHelperText>
@@ -163,11 +178,18 @@ export default function AddProduct({ addProduct }) {
             </FormControl>
             <FormControl id="description">
               <FormLabel>Mô tả</FormLabel>
-              <Textarea onChange={handleOnChange} name="description" />
+              <CKEditor
+                activeClass="p10"
+                name="description"
+                content={state.description}
+                events={{
+                  change: handleOnChangeDescription,
+                }}
+              />
               <FormHelperText>Mô tả là bắt buộc.</FormHelperText>
             </FormControl>
             <FormControl id="submit">
-              <Button onClick={handleOnSubmit}>Thêm mới</Button>
+              <Button onClick={handleOnSubmit}>{title || "Thêm mới"}</Button>
             </FormControl>
           </>
         }
